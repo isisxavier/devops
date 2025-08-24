@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # Frontend
+  frontend:
+    image: isisxavier/2024-devops:frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  # Backend
+  backend:
+    image: isisxavier/2024-devops:backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=devops123
+      - DB_NAME=tasks_db
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=devops123
+      - MYSQL_DATABASE=tasks_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  # PhpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=devops123
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+
+

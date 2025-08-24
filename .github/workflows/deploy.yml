@@ -1,0 +1,72 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: |
+        cd backend
+        npm ci
+        
+    - name: Run tests
+      run: |
+        cd backend
+        npm test --if-present
+        
+    - name: Build Docker images
+      run: |
+        docker build -t isisxavier/2024-devops:frontend ./frontend
+        docker build -t isisxavier/2024-devops:backend ./backend
+        
+    - name: Push to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        
+    - name: Push images
+      run: |
+        docker push isisxavier/2024-devops:frontend
+        docker push isisxavier/2024-devops:backend
+        
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+        script: |
+          # Parar containers existentes
+          docker-compose down || true
+          
+          # Remover imagens antigas
+          docker rmi isisxavier/2024-devops:frontend isisxavier/2024-devops:backend || true
+          
+          # Baixar novas imagens
+          docker pull isisxavier/2024-devops:frontend
+          docker pull isisxavier/2024-devops:backend
+          
+          # Iniciar aplicação
+          cd /home/admin/devops-app
+          docker-compose up -d
+          
+          # Verificar status
+          docker-compose ps
+          echo "Deploy concluído em $(date)"
+
+
