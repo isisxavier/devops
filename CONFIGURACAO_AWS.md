@@ -49,11 +49,21 @@ ssh -i "caminho/para/chave.pem" admin@SEU_IP_EC2
 
 ### **1. Atualizar sistema**
 ```bash
+# ⚠️ IMPORTANTE: Execute estes comandos NO DIRETÓRIO HOME do usuário
+# NÃO na pasta devops-app ainda!
+
+# Primeiro, vá para o diretório home
+cd /home/admin
+
+# Agora atualize o sistema
 sudo apt update && sudo apt upgrade -y
 ```
 
 ### **2. Instalar Docker**
 ```bash
+# ⚠️ IMPORTANTE: Continue no diretório /home/admin
+# NÃO vá para devops-app ainda!
+
 # Instalar dependências
 sudo apt install -y apt-transport-https ca-certificates curl gnupg lsb-release
 
@@ -80,6 +90,9 @@ docker --version
 
 ### **3. Instalar Docker Compose**
 ```bash
+# ⚠️ IMPORTANTE: Continue no diretório /home/admin
+# NÃO vá para devops-app ainda!
+
 # Baixar Docker Compose
 sudo curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
@@ -92,6 +105,9 @@ docker-compose --version
 
 ### **4. Configurar firewall**
 ```bash
+# ⚠️ IMPORTANTE: Continue no diretório /home/admin
+# NÃO vá para devops-app ainda!
+
 # Permitir SSH (porta 22)
 sudo ufw allow 22
 
@@ -117,6 +133,21 @@ sudo ufw status
 ---
 
 ## **📁 PREPARANDO O PROJETO NA EC2**
+
+### **⚠️ ORDEM CORRETA DOS DIRETÓRIOS:**
+
+**FASE 1: Configuração do Sistema (NO DIRETÓRIO HOME)**
+```bash
+# Você deve estar em: /home/admin
+# NÃO em: /home/admin/devops-app
+```
+
+**FASE 2: Preparação do Projeto (CRIAR devops-app)**
+```bash
+# Agora sim, criar e entrar na pasta do projeto
+mkdir -p /home/admin/devops-app
+cd /home/admin/devops-app
+```
 
 ### **1. Criar diretório do projeto**
 ```bash
