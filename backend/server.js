@@ -34,10 +34,20 @@ async function connectDB() {
 // Conectar ao banco na inicialização
 connectDB();
 
-// Rotas da API
+// Rotas da API - SIMPLES E DIRETAS
 
-// GET /api/tasks - Listar todas as tarefas
-app.get('/api/tasks', async (req, res) => {
+// GET /health - Health check
+app.get('/health', (req, res) => {
+    res.json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        service: 'Tasks API',
+        version: '1.0.0'
+    });
+});
+
+// GET /tasks - Listar todas as tarefas
+app.get('/tasks', async (req, res) => {
     try {
         const [rows] = await pool.execute('SELECT * FROM tasks ORDER BY created_at DESC');
         res.json(rows);
@@ -47,8 +57,8 @@ app.get('/api/tasks', async (req, res) => {
     }
 });
 
-// POST /api/tasks - Criar nova tarefa
-app.post('/api/tasks', async (req, res) => {
+// POST /tasks - Criar nova tarefa
+app.post('/tasks', async (req, res) => {
     try {
         const { title, description } = req.body;
         
@@ -69,8 +79,8 @@ app.post('/api/tasks', async (req, res) => {
     }
 });
 
-// PUT /api/tasks/:id - Atualizar tarefa
-app.put('/api/tasks/:id', async (req, res) => {
+// PUT /tasks/:id - Atualizar tarefa
+app.put('/tasks/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const { title, description, completed } = req.body;
@@ -92,8 +102,8 @@ app.put('/api/tasks/:id', async (req, res) => {
     }
 });
 
-// DELETE /api/tasks/:id - Deletar tarefa
-app.delete('/api/tasks/:id', async (req, res) => {
+// DELETE /tasks/:id - Deletar tarefa
+app.delete('/tasks/:id', async (req, res) => {
     try {
         const { id } = req.params;
         
@@ -110,19 +120,9 @@ app.delete('/api/tasks/:id', async (req, res) => {
     }
 });
 
-// Rota de health check
-app.get('/health', (req, res) => {
-    res.json({ 
-        status: 'OK', 
-        timestamp: new Date().toISOString(),
-        service: 'Tasks API',
-        version: '1.0.0'
-    });
-});
-
 // Iniciar servidor
 app.listen(PORT, () => {
     console.log(`🚀 Servidor rodando na porta ${PORT}`);
     console.log(`📊 Health check: http://localhost:${PORT}/health`);
-    console.log(`🔗 API: http://localhost:${PORT}/api/tasks`);
+    console.log(`🔗 API: http://localhost:${PORT}/tasks`);
 });

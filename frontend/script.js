@@ -1,5 +1,7 @@
-// Configuração da API
-const API_BASE_URL = 'http://localhost:5000';
+// Configuração da API - SIMPLES E DIRETA
+const API_BASE_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:5000' 
+    : `http://${window.location.hostname}:5000`;
 
 // Elementos do DOM
 const taskForm = document.getElementById('taskForm');
