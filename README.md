@@ -19,8 +19,8 @@ Aplicação simples de Lista de Tarefas com frontend e backend, containerizada c
 ## Como executar localmente
 ```bash
 # Clonar o repositório
-git clone https://github.com/isisxavier/2024-devops.git
-cd 2024-devops
+git clone https://github.com/isisxavier/devops.git
+cd devops
 
 # Executar com Docker
 docker-compose up -d

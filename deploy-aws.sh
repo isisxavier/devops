@@ -14,13 +14,13 @@ docker login
 
 # Construir imagens
 echo "🏗️ Construindo imagens Docker..."
-docker build -t isisxavier/2024-devops:frontend ./frontend
-docker build -t isisxavier/2024-devops:backend ./backend
+docker build -t isisxavier/devops:frontend ./frontend
+docker build -t isisxavier/devops:backend ./backend
 
 # Fazer push para o Docker Hub
 echo "📤 Fazendo push para o Docker Hub..."
-docker push isisxavier/2024-devops:frontend
-docker push isisxavier/2024-devops:backend
+docker push isisxavier/devops:frontend
+docker push isisxavier/devops:backend
 
 echo "✅ Deploy concluído!"
 echo "📋 Próximos passos:"

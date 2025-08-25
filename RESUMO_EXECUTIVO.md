@@ -20,7 +20,7 @@
 ## **📁 ESTRUTURA DO PROJETO**
 
 ```
-devps/
+devops/
 ├── 📁 frontend/           # Interface web (HTML/CSS/JS)
 ├── 📁 backend/            # API Node.js + Express
 ├── 📁 database/           # Scripts SQL e inicialização

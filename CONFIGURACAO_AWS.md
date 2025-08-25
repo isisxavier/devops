@@ -127,7 +127,7 @@ cd /home/admin/devops-app
 ### **2. Baixar arquivos do projeto**
 ```bash
 # Clonar repositório (se for público)
-git clone https://github.com/isisxavier/2024-devops.git .
+git clone https://github.com/isisxavier/devops.git .
 
 # OU baixar arquivos manualmente via SCP
 ```
@@ -145,8 +145,8 @@ cp docker-compose.prod.yml docker-compose.yml
 ### **1. Primeira execução**
 ```bash
 # Baixar imagens do Docker Hub
-docker pull isisxavier/2024-devops:frontend
-docker pull isisxavier/2024-devops:backend
+docker pull isisxavier/devops:frontend
+docker pull isisxavier/devops:backend
 
 # Iniciar aplicação
 docker-compose up -d

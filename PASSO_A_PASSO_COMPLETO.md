@@ -62,7 +62,7 @@ git add .
 git commit -m "feat: projeto inicial com frontend, backend e docker"
 
 # Adicionar repositório remoto
-git remote add origin https://github.com/isisxavier/2024-devops.git
+git remote add origin https://github.com/isisxavier/devops.git
 ```
 
 ### **2.2 Criar e configurar branches**
@@ -95,12 +95,12 @@ docker login
 ### **3.2 Construir e fazer push das imagens**
 ```bash
 # Construir imagens
-docker build -t isisxavier/2024-devops:frontend ./frontend
-docker build -t isisxavier/2024-devops:backend ./backend
+docker build -t isisxavier/devops:frontend ./frontend
+docker build -t isisxavier/devops:backend ./backend
 
 # Fazer push
-docker push isisxavier/2024-devops:frontend
-docker push isisxavier/2024-devops:backend
+docker push isisxavier/devops:frontend
+docker push isisxavier/devops:backend
 ```
 
 ---
@@ -169,7 +169,7 @@ mkdir -p /home/admin/devops-app
 cd /home/admin/devops-app
 
 # Baixar arquivos (se repositório público)
-git clone https://github.com/isisxavier/2024-devops.git .
+git clone https://github.com/isisxavier/devops.git .
 
 # OU copiar arquivos manualmente
 ```
@@ -177,8 +177,8 @@ git clone https://github.com/isisxavier/2024-devops.git .
 ### **5.2 Executar aplicação**
 ```bash
 # Baixar imagens
-docker pull isisxavier/2024-devops:frontend
-docker pull isisxavier/2024-devops:backend
+docker pull isisxavier/devops:frontend
+docker pull isisxavier/devops:backend
 
 # Iniciar aplicação
 docker-compose -f docker-compose.prod.yml up -d

@@ -3,9 +3,9 @@ version: '3.8'
 services:
   # Frontend
   frontend:
-    image: isisxavier/2024-devops:frontend
+    image: isisxavier/devops:frontend
     ports:
-      - "80:80"
+      - "8081:80"
     depends_on:
       - backend
     networks:
@@ -13,7 +13,7 @@ services:
 
   # Backend
   backend:
-    image: isisxavier/2024-devops:backend
+    image: isisxavier/devops:backend
     ports:
       - "5000:5000"
     environment:
